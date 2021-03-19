@@ -1,0 +1,126 @@
+.contenedor {
+    display: inline-block;
+}
+
+.contenedor2 {
+    width: 30rem;
+    height: 29rem;
+    background-color: rgb(248, 248, 244);
+    margin: 1rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.6);
+}
+
+.titulo {
+    height: 3.5rem;
+    font-size: 1.7rem;
+    margin: 0;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+    /* background-color: orchid; */
+}
+
+.contenedor__titulo {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.rating {
+    width: 2.9rem;
+    height: 2.9rem;
+    font-size: .8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: .5px .5px 2px 2px rgba(0, 0, 0, 0.5);
+    margin: 0 1.5rem;
+    font-family: sans-serif;
+}
+
+.subcontenedor {
+    /* background-color: palegoldenrod; */
+    height: 4rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.titulo__subcontenedor {
+    font-size: 1rem;
+}
+
+.genero {
+    font-size: 1rem;
+}
+
+.contenedor__imagen {
+    /* background-color: pink; */
+    height: 17rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen {
+    width: 25rem;
+    height: 14rem;
+    border-radius: 5px;
+}
+
+.contenedor__button__especifico {
+    /* background-color: rosybrown; */
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5rem;
+}
+
+.button__especifico {
+    text-decoration: none;
+    width: 25rem;
+    height: 3rem;
+    background-color: #044cb1;
+    color: #FED30B;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: .5rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 2px rgba(7, 123, 236, 0.5);
+}
+
+.button__especifico:hover {
+    background-color: rgba(2, 100, 233, 0.5);
+    width: 25rem;
+    color: #a00c07;
+    box-shadow: 0px 0px 2px 2px rgba(243, 22, 13, 0.5);
+}
+
+.genero {
+    overflow: auto;
+    font-size: 1.4rem;
+}
+
+.contenedor__card__mensaje {
+    /* background-color: bisque; */
+    width: 70rem;
+    height: 20rem;
+    display: flex;
+    align-items: center;
+}
+
+.card__mensaje {
+    background-color: red;
+    height: 10rem;
+    width: 40rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 1rem;    
+}

@@ -1,0 +1,10 @@
+.contenedor{
+    display: flex;      
+}
+
+.contenedor__cardsgeneral{
+   width: 1000px;
+   display: block;
+   padding-left: 7rem;
+    
+}

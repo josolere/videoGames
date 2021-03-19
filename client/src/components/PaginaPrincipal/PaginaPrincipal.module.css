@@ -1,0 +1,58 @@
+.contenedor{
+    width: 100vw;
+    height:100vh;
+    background-image: url('../../img/imagenPrincipal.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.bienvenida{
+    color: rgb(68,243,252);
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    
+}
+
+.contenedor__link{
+    /* background-color: lemonchiffon; */
+    width: 70rem;
+    height: 13rem;  
+    margin-bottom: 25rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.imagen__fondo{   
+    /* background-color: lightblue; */
+    width: 10rem;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    background-color: rgb(29,136,178);
+    color: rgb(68,243,252);
+    width: 5.7rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin-right: 3.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 5rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    font-weight: 700;
+
+}

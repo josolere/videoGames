@@ -1,0 +1,287 @@
+.contenedor {
+    width: 20vw;
+    height: 100vh;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inicio {
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.titulo__inicio {
+    font-size: 1.6rem;
+    margin: 1rem 0 0 0;
+    color: #077BEC;
+}
+
+.icono{
+    color: #077BEC;
+}
+
+.contenedor__datos {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.label__datos {
+    text-align: center;
+    /* margin-top: 2rem; */
+    color: #077BEC;
+    font-weight: 600;
+}
+
+.input__datos {
+    height: 2.3rem;
+    border-radius: .5rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    box-shadow: 1px 1px 4px 1px rgba(7, 123, 236, 0.3);
+    text-align: center;
+    outline: none;
+    /*  suspender el borde cuando se da click en el input junto con la linea de abajo     */
+    border: 0;
+    color: #077BEC;
+}
+
+.input__datos::placeholder {
+    color: #077bec;
+}
+
+.button__datos, .button_ordenado {
+    height: 3rem;
+    background-color:rgb(66, 93, 126);
+    color: #FED30B;
+    border-radius: .7rem;
+    border: none;
+    box-shadow: 2px 1px 4px 2px rgba(7, 123, 236, 0.5);
+    outline: none;
+    border: 0;
+}
+
+.button__datos:hover, .button_ordenado:hover {
+    cursor: pointer;
+    background-color: rgba(13, 116, 236, 0.4);
+    color: #F3160D;
+    box-shadow: 2px 1px 4px 2px rgba(243, 22, 13, 0.5);
+}
+
+.primer__select {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.lable__primerSelect {
+    font-size: 1.4rem;
+    text-align: center;
+    color: #077BEC;
+}
+
+.select {
+    height: 2.3rem;
+    border-radius: .5rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    box-shadow: 1px 1px 4px 1px rgba(7, 123, 236, 0.3);
+    text-align: center;
+    outline: none;
+    /*  suspender el borde cuando se da click en el input junto con la linea de abajo     */
+    border: 0;
+    color: #077BEC;
+}
+
+.option__primerSelect {
+    background-color:lightgray;
+}
+
+.button__primerSelect {
+    height: 3rem;
+    background-color:rgb(66, 93, 126);
+    color: #FED30B;
+    border-radius: .7rem;
+    border: none;
+    box-shadow: 2px 1px 4px 2px rgba(7, 123, 236, 0.5);
+    outline: none;
+    border: 0;
+}
+
+.button__primerSelect:hover {
+    cursor: pointer;
+    background-color: rgba(13, 116, 236, 0.5);
+    color: #F3160D;
+    box-shadow: 2px 1px 4px 2px rgba(243, 22, 13, 0.5);
+}
+
+.segundo__select {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.label__tipos {
+    font-size: 1.4rem;
+    text-align: center;
+    color: #077BEC;
+}
+
+.datos__tipos {
+    height: 2.3rem;
+    border-radius: .5rem;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    box-shadow: 1px 1px 4px 1px rgba(7, 123, 236, 0.3);
+    text-align: center;
+    /*  suspender el borde cuando se da click en el input junto con la linea de abajo     */
+    outline: none;
+    border: 0;
+    color: #077BEC;
+}
+
+.buton__segundoSelect {
+    height: 3rem;
+    background-color:rgb(66, 93, 126);
+    color: #FED30B;
+    border-radius: .7rem;
+    border: none;
+    box-shadow: 2px 1px 4px 2px rgba(7, 123, 236, 0.5);
+    outline: none;
+    border: 0;
+}
+
+.buton__segundoSelect:hover {
+    cursor: pointer;
+    background-color: rgba(13, 116, 236, 0.5);
+    color: #F3160D;
+    box-shadow: 2px 1px 4px 2px rgba(243, 22, 13, 0.5);
+}
+
+.contenedor__ordenar {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.contenedor__selectores__orden {
+    display: flex;
+    justify-content: space-around;
+}
+
+.link__form {
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    color: #077BEC;
+    border-top: 2px solid rgba(13, 116, 236, 0.4);
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.link__crear {
+    text-decoration: none;
+    width: 25rem;
+    height: 3rem;
+    background-color: #0364e9;
+    color: #FED30B;
+    font-size: 1.4rem;
+    text-align: center;
+    padding: .5rem;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 2px 1px 4px 2px rgba(7, 123, 236, 0.5);
+}
+
+.link__crear:hover {
+    background-color: rgba(2, 100, 233, 0.5);
+    color: #a00c07;
+}
+
+.select__ordenar, .select__alfabetico {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input__radio1 {
+    position: relative;
+    width: 60px;
+    height: 20px;
+    margin: 5px;
+    outline: none;
+    background: #111;
+    -webkit-appearance: none;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: -5px -5px 20px rgba(255, 255, 255, 0.1), 5px 5px 10px rgba(0, 0, 0, 1), inset -2px -2px 5px rgba(255, 255, 255, 0.1), inset 2px 2px 5px rgba(0, 0, 0, 0.5), 0 0 0 2px #1f1f1f;
+    transition: 0.5s;
+}
+
+.input__radio1:checked {
+    background: #20b7ff;
+}
+
+.input__radio1::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(to top, #000, #555);
+    border-radius: 10px;
+    box-shadow: 0 0 0 1px #232323;
+    transform: scale(0.98, 0.96);
+    transition: 0.5s;
+}
+
+.input__radio1:checked::before {
+    left: 20px;
+}
+
+.input__radio1::after {
+    content: '';
+    position: absolute;
+    left: 32.5px;
+    top: calc(50% - 2px);
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: #555;
+    transition: 0.5s;
+}
+
+.input__radio1:checked::after {
+    left: calc(32.5px + 20px);
+    background: #63cdff;
+    box-shadow: 0 0 5px #63cdff, 0 0 15px #63cdff, 0 0 30px #63cdff;
+}
+
+.label__select__ordenar1,.label__select__ordenar2, .label__select__alfabetico1, .label__select__alfabetico2{
+    color: #077BEC;
+    font-weight: 600;
+}
+label{
+    font-weight: 600;
+}
