@@ -18,7 +18,7 @@ const getGames = (req, res) => {
                     mapeo.genres.map(gen => {
                         arrayGender.push(gen.name)
                     })
-                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating })
+                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
                 })
                 array.length !== 0 ? res.send(array) : res.send('No existe el  videojuego')
             })
@@ -30,7 +30,7 @@ const getGames = (req, res) => {
                     mapeo.genres.map(gen => {
                         arrayGender.push(gen.name)
                     })
-                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating })
+                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
                 })
                 res.send(array)
             })
@@ -65,7 +65,7 @@ const getIdGame = (req, res) => {
                             image: re.background_image,
                             description: re.description,
                             releaseDate: re.released,
-                            reting: re.rating,
+                            rating: re.rating,
                             platforms: arrayPlatforms,
                         }
                         res.send(obj)
@@ -105,7 +105,7 @@ const getGenres = (req, res) => {
                             result.genres.map(mape => {
                                 arrayGender.push(mape.name)
                             })
-                            arrayNue.push({ name: result.name, image: result.background_image, rating: result.rating, genres:arrayGender })
+                            arrayNue.push({ name: result.name, image: result.background_image, rating: result.rating, genres:arrayGender, id:result.id })
                             count++
                             count === nuevoArray.length ? res.send(arrayNue)
                                 :

@@ -4,6 +4,8 @@ import PaginaPrincipal from './components/PaginaPrincipal/PaginaPrincipal';
 import Home from './components/RutaInicial/Home/Home';
 import { Provider } from 'react-redux'
 import store from './Redux/store'
+import RutaDetallada from './components/RutaDeatallada/RutaDetallada';
+import Creados from './components/Creados/Creados';
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path='/' component={PaginaPrincipal} />
-          <Route  path='/home' component={Home} />
+          <Route exact path='/home' component={Home} />
+          <Route exact path='/home/detalles' component={RutaDetallada} />
+          <Route exact path='/home/crear' component={Creados} />
         </Switch>
       </Router>
     </Provider>

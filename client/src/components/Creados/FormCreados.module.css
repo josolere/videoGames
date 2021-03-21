@@ -1,0 +1,142 @@
+.body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;    
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.form{
+    width: 65vw;
+    height: 87vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+    border-radius: 1rem;
+}
+
+.subcontenedor{
+    display: flex;
+    width: 90%;
+    justify-content: flex-start;
+}
+
+.subcontenedor1{
+    width: 57%;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.subcontenedor2{
+    width: 43%;
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.contenedor__nombre,
+.contenedor__fecha,
+.contenedor__rating,
+.contenedor__generos,
+.contenedor__plataformas{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.input__nombre{
+    width: 40%;
+}
+
+.label__nombre,
+.label__descripcion{
+    width: 60%;
+}
+
+.contenedor__descripcion{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.textarea__descripcion{
+   width: 40%;
+}
+
+.input__fecha,
+.input__rating,
+.select__generos,
+.select__plataformas{
+    width: 12rem;
+}
+
+.label__fecha,
+.label__rating,
+.label__generos,
+.label__plataformas{
+    width: 20rem;
+    margin-right: 7rem;    
+}
+
+.button{
+    width: 20rem;
+    height: 3rem;
+    cursor: pointer;
+    background-color:rgb(66, 93, 126);
+    color: #FED30B;
+    border-radius: .7rem;
+    border: none;
+    box-shadow: 2px 1px 4px 2px rgba(7, 123, 236, 0.5);
+    outline: none;
+    border: 0;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: rgba(13, 116, 236, 0.5);
+    color: #F3160D;
+    box-shadow: 2px 1px 4px 2px rgba(243, 22, 13, 0.5);
+}
+
+.contendor__link{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label__home{
+    font-size: 2rem;
+    color: rgb(212, 90, 41);
+}
+.contenedor__icono
+{
+    width: 3rem;
+}
+
+.icono{
+    font-size: 3rem;
+}
+
+.button__listar{
+    cursor: pointer;
+    background-color:rgb(66, 93, 126);
+    color: #FED30B;
+    border-radius: .4rem;
+    border: none;
+    box-shadow: 1px 1px 1px 1px rgba(7, 123, 236, 0.5);
+    outline: none;
+    border: 0;    
+}
+
+.button__listar:hover{
+        cursor: pointer;
+        background-color: rgba(13, 116, 236, 0.5);
+        color: #F3160D;
+        box-shadow: 1px 1px 1px 1px rgba(243, 22, 13, 0.5);
+}

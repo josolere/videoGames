@@ -14,7 +14,6 @@ export const listarGeneros = () => async(dispatch) =>{
 
 
 export const buscarGeneros = (datos) => async(dispatch) =>{
-    console.log(datos)
     if(datos.tipos !== 'Generos'){
     const generos = await Axios(`http://localhost:3001/genres?name=${datos.tipos}`)
     dispatch({

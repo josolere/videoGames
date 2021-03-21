@@ -18,7 +18,6 @@ const Header = () => {
 
     const generos = useSelector(store => store.reduceGeneros)
 
-
     const handleInput = (e) => {
         setDatos({
             ...datos,

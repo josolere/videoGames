@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import card from './CardGeneral.module.css'
 import Generos from './Generos'
+import {useDispatch} from 'react-redux'
+import {especificos} from '../../../Redux/Actions/actionEspecifico'
 
 const CardGeneral = (props) => {
-  const [inicio, setInicio] = useState([])
-  const [genre, setGenre] = useState([])
+  const [inicio, setInicio] = useState([]);
+  const [genre, setGenre] = useState([]);
+
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
     setInicio(props.datos)
@@ -43,11 +48,13 @@ const CardGeneral = (props) => {
             </div>
             <div className={card.contenedor__button__especifico}>
               <Link
-                to='/home/especifico'
+                to='home/detalles'
                 className={card.button__especifico}
-                type='submit'>
+                type='submit'
+                onClick={()=> dispatch(especificos(inicio.id))}
+                >
                 Datos Especifico
-     </Link>
+              </Link>
             </div>
           </div>
         </div>

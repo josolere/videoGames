@@ -6,13 +6,17 @@ import reduceGeneros from './Reducers/reducerGeneros';
 import reducerTipos from './Reducers/reducerTipos';
 import reducerOrden from './Reducers/reducerOrdenar';
 import reducerAlfabetico from './Reducers/reducerAlfabetico';
+import reducerEspecifico from './Reducers/reducerEspecifico'
+import reducerGenPlat from './Reducers/reducerGenerosPlataformas'
 
 const reducer = combineReducers({
     reducerGeneral,
     reduceGeneros,
     reducerTipos,
     reducerOrden,
-    reducerAlfabetico
+    reducerAlfabetico,
+    reducerEspecifico,
+    reducerGenPlat
 })
 
 const store = createStore(reducer, composeWithDevTools(

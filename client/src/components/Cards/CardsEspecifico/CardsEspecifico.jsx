@@ -1,10 +1,11 @@
 import React from 'react'
+import CardEspecifico from './CardEspecifico'
 
 const CardsEspecifico = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            <CardEspecifico />
+        </>
     )
 }
 
