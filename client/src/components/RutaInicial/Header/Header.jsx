@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye } from '@fortawesome/free-solid-svg-icons'
 import { listarAscendente, listarDescendente, listarAlfabetico, listarRating } from '../../../Redux/Actions/actionOrdenar'
 import { listaGeneral } from '../../../Redux/Actions/actionGeneral'
-import { listarGeneros, buscarGeneros } from '../../../Redux/Actions/actionGeneros'
+import { listarGeneros, buscarGeneros, buscarCreados } from '../../../Redux/Actions/actionGeneros'
 
 
 const Header = () => {
@@ -14,7 +14,8 @@ const Header = () => {
 
     const [datos, setDatos] = useState({ name: '' });
     const [tipos, setTipos] = useState({ tipos: 'Generos' })
-    const [ordenados, setOrdenados] = useState({ valoralf: 'alfabetico' })
+    // const [ordenados, setOrdenados] = useState({ valoralf: 'alfabetico' })
+    // const [creados, setCreados] = useState('existente')
 
     const generos = useSelector(store => store.reduceGeneros)
 
@@ -32,12 +33,12 @@ const Header = () => {
         })
     }
 
-    const onChangeValueAlfabeticos = (e) => {
-        setOrdenados({
-            ...ordenados,
-            [e.target.name]: e.target.value
-        })
-    }
+    // const onChangeValueAlfabeticos = (e) => {
+    //     setOrdenados({
+    //         ...ordenados,
+    //         [e.target.name]: e.target.value
+    //     })
+    // }
 
     useEffect(() => {
         dispatch(listarGeneros())
@@ -93,7 +94,16 @@ const Header = () => {
                         <option className={head.option__primerSelect} value="creados">Creados</option>
                         <option className={head.option__primerSelect} value="existentes">Existentes</option>
                     </select>
-                    <button className={head.button__primerSelect}>Buscar</button>
+                    <button 
+                    className={head.button__primerSelect}
+                    type='button'
+                    onClick={() => {
+                        tipos !== 'seleccionar' ?
+                            dispatch(buscarCreados(tipos)) :
+                            console.log('null')
+                    }
+                    }
+                    >Buscar</button>
                 </div>
                 {/* ------------------------------------------------------------------------------------------- */}
 

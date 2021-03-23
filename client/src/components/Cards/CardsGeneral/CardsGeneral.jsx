@@ -14,7 +14,10 @@ const CardsGeneral = () => {
     const video = useSelector(store => store.reducerGeneral);
     const tipos = useSelector(store => store.reducerTipos);
     const orden = useSelector(store => store.reducerOrden);
+    const creados = useSelector(store => store.reducerCreados);
     const alfabetico = useSelector(store => store.reducerAlfabetico);
+
+    console.log(creados)
     //-------------------------------------------------------------------------------------------------
     useEffect(() => {
         if (typeof video.data === 'string') {
@@ -31,6 +34,13 @@ const CardsGeneral = () => {
             setVideJuego(tipos.data)
         }
     }, [tipos])
+
+    //-------------------------------------------------------------------------------------------------------------------------
+    useEffect(() => {
+        if (creados.length !== 0) {
+            setVideJuego(creados.data)
+        }
+    }, [creados])
 
     //-----------------------------------------------------------------------------------------------------------------
 

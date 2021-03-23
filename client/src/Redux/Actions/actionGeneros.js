@@ -1,4 +1,4 @@
-import {LISTAR__GENEROS, BUSCAR__GENERO} from '../constants/constant'
+import {LISTAR__GENEROS, BUSCAR__GENERO, CREADOS} from '../constants/constant'
 import Axios from 'axios'
 
 
@@ -21,4 +21,15 @@ export const buscarGeneros = (datos) => async(dispatch) =>{
         payload:generos.data
     })
 }
+}
+
+
+export const buscarCreados = (datos) => async(dispatch) =>{
+    if(datos.creados !== 'seleccionar'){
+        const creados = await Axios(`http://localhost:3001/creados/${datos.creados}`)
+        dispatch({
+            type:CREADOS,
+            payload:creados.data
+        })
+    }
 }

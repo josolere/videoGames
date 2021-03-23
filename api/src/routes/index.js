@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {getGames, getName, getIdGame, getGenres, postCrearVideoJuego,getPlataforms, prueba} = require('./methods');
+const {getGames, getName, getIdGame, getGenres, postCrearVideoJuego,getPlataforms,creadosExistentes, prueba} = require('./methods');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -29,6 +29,10 @@ router.post('/videogames', postCrearVideoJuego)
 
 //get listar plataformas
 router.get('/platforms', getPlataforms)
+
+
+//get listar existentes o creados
+router.get('/creados/:valor', creadosExistentes)
 
 // router.get('/video/id',prueba)
 

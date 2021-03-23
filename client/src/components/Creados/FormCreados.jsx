@@ -5,17 +5,21 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import creados from './FormCreados.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { listarGeneros } from '../../Redux/Actions/actionGeneros';
-import { nuevoGenero, nuevaPlataforma } from '../../Redux/Actions/actionGenerosPlataformas'
+import { nuevoGenero, nuevaPlataforma, reset } from '../../Redux/Actions/actionGenerosPlataformas'
 import Axios from 'axios'
 
 
 const FormCreados = () => {
+
     const dispatch = useDispatch()
 
     const generos = useSelector(store => store.reduceGeneros.data);
     const nuevoGeneros = useSelector(store => store.reducerGenPlat.genres);
     const nuevaPlataf = useSelector(store => store.reducerGenPlat.platforms);
+    const generoId = useSelector(store => store.reducerGenPlat.id);
 
+    const [option, setOption] = useState('Generos')
+    const [mensaje, setMensaje] = useState(false)
     const [gener, setGener] = useState({ genres: [] })
     const [platforma, setPlatforma] = useState({ platforms: [] })
     const [plataforma, setPlataforma] = useState([])
@@ -28,12 +32,13 @@ const FormCreados = () => {
         genres: []
     })
 
+
     useEffect(() => {
         setDatos({
             ...datos,
-            genres: nuevoGeneros
+            genres: generoId
         })
-    }, [nuevoGeneros])
+    }, [generoId])
 
 
     useEffect(() => {
@@ -55,13 +60,17 @@ const FormCreados = () => {
 
     const crearVideojuego = async (e) => {
         e.preventDefault()
-        Axios.post('http://localhost:3001/videogames', datos)
-        try {
-            console.log(creados)
-        } catch (error) {
-            console.log(error)
-        }
-
+        await Axios.post('http://localhost:3001/videogames', datos)
+            .then(result => {
+                if (result.status === 200) {
+                    setMensaje(true)
+                } else {
+                    setMensaje(false)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
         setDatos({
             name: '',
             description: '',
@@ -70,7 +79,8 @@ const FormCreados = () => {
             platforms: [],
             genres: []
         })
-        
+        dispatch(reset())
+        setTimeout(() => setMensaje(false), 5000);
     }
 
     const handleInput = (e) => {
@@ -96,10 +106,13 @@ const FormCreados = () => {
 
     // funcion filtra si ya esta el genero  y agrega el genero si no esta 
     const guardarGenero = () => {
-        const nuvFilt = nuevoGeneros.filter(filt => filt === gener.genres)
+        const nuvFilt = nuevoGeneros.filter(filt => filt.name === gener.genres)
         if (nuvFilt.length === 0) {
-            dispatch(nuevoGenero(gener.genres))
+            let nuevoFiltrado = generos.filter(filt => filt.name === gener.genres)
+            dispatch(nuevoGenero(nuevoFiltrado))
         }
+        setOption(option)
+
     }
 
     // funcion filtra si ya esta la plataforma  y agrega una nueva plataforma si no esta 
@@ -113,9 +126,14 @@ const FormCreados = () => {
     return (
         <>
             <div className={creados.body}>
-                <div className={creados.contendor__link}>
-                    <label className={creados.label__home}>HOME</label>
-                    <Link to='/home' className={creados.contenedor__icono}> <FontAwesomeIcon icon={faHome} className={creados.icono} /></Link>
+                <div className={creados.contenedor__home__mensaje}>
+                    <div className={creados.contenedor__mensaje}>
+                        <div id={mensaje === true ? creados.mens : null} className={creados.mensaje}>VideoJuego creado exitosamente</div>
+                    </div>
+                    <div className={creados.contendor__link}>
+                        <label className={creados.label__home}>HOME</label>
+                        <Link to='/home' className={creados.contenedor__icono}> <FontAwesomeIcon icon={faHome} className={creados.icono} /></Link>
+                    </div>
                 </div>
                 <form className={creados.form}>
                     <div className={creados.contenedor__nombre}>
@@ -139,7 +157,7 @@ const FormCreados = () => {
                             cols="30"
                             rows="10"
                             onChange={handleInput}
-                            value={datos.descripcion}
+                            value={datos.description}
                         />
                     </div>
                     <div className={creados.subcontenedor}>
@@ -176,7 +194,7 @@ const FormCreados = () => {
                                     onChange={handleGenero}
                                     value={gener.genres}
                                 >
-                                    <option>Generos</option>
+                                    <option label={option} ></option>
                                     {generos.map((mapeo, index) => {
                                         return <option key={index} >{mapeo.name}</option>
                                     })}
@@ -220,7 +238,7 @@ const FormCreados = () => {
                                     {
                                         nuevoGeneros.length !== 0 ?
                                             nuevoGeneros.map(mapeo => {
-                                                return <li> {mapeo} </li>
+                                                return <li> {mapeo.name} </li>
                                             }) : null
                                     }
                                 </ul>
@@ -239,9 +257,9 @@ const FormCreados = () => {
                     </div>
                     <div className={creados.contenedor__button}>
                         <button
-                        className={creados.button}
-                        type='submit'
-                        onClick={crearVideojuego}                        
+                            className={creados.button}
+                            type='submit'
+                            onClick={crearVideojuego}
                         >
                             Crear Videojuego
                   </button>

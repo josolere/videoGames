@@ -8,3 +8,5 @@ export const LISTAR__RATING = 'LISTAR__RATING';
 export const DATOS__ESPECIFICOS = 'DATOS__ESPECIFICOS';
 export const NUEVO__GENERO = 'NUEVO__GENERO';
 export const NUEVA__PLATAFORMA = 'NUEVA__PLATAFORMA';
+export const RESET = 'RESET';
+export const CREADOS = 'CREADOS';

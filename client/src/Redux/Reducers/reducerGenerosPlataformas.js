@@ -1,9 +1,11 @@
-import { NUEVA__PLATAFORMA, NUEVO__GENERO } from '../constants/constant';
+import { NUEVA__PLATAFORMA, NUEVO__GENERO, RESET } from '../constants/constant';
 
 
 const initialState = {
     genres: [],
-    platforms: []
+    platforms: [],
+    id:[]
+
 }
 
 
@@ -12,7 +14,8 @@ export default (state = initialState, action) => {
         case NUEVO__GENERO:
             return {
                 ...state,
-                genres: state.genres.concat([action.payload])
+                genres: state.genres.concat(action.payload),
+                id: state.id.concat(action.payload[0].id)
             }
 
         case NUEVA__PLATAFORMA:
@@ -20,6 +23,14 @@ export default (state = initialState, action) => {
                 ...state,
                 platforms: state.platforms.concat([action.payload])
             }
+
+            case RESET:
+                return {
+                    ...state,
+                    genres: [],
+                    platforms: [],
+                    id:[]
+                }
 
         default: return state
     }

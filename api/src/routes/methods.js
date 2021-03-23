@@ -42,7 +42,7 @@ const getGames = (req, res) => {
 //metodo get que liste los detalles del videojuego
 const getIdGame = (req, res) => {
     let { id } = req.params;
-    console.log(id);
+    // console.log(id);
     Videogame.findAll()
         .then(e => {
             const fil = e.filter(filte => filte.id === id)
@@ -73,6 +73,7 @@ const getIdGame = (req, res) => {
                     .catch(err => res.send('No existe el video juego'))
                 : Videogame.findByPk(id, { include: Gender })
                     .then((videogames) => {
+                        console.log(videogames)
                         res.status(200).send(videogames)
                     })
         })
@@ -85,7 +86,7 @@ const getIdGame = (req, res) => {
 const getGenres = (req, res) => {
     const arrayGender = []
     const gener = req.query.name
-    console.log(gener)
+    // console.log(gener)
     Object.values(req.query).length !== 0        // hasta la linea 112 para filtrar por genero 
         ? fetch(`https://api.rawg.io/api/genres`)
             .then(e => e.json())
@@ -145,12 +146,12 @@ const getGenres = (req, res) => {
 
 //post crear videojuegos
 const postCrearVideoJuego = async (req, res) => {
-    console.log(req.body)
-    let arrayGender = req.body.gender
+    // console.log(req.body)
+    let arrayGender = req.body.genres
     if (!Array.isArray(arrayGender)) {
         arrayGender = [arrayGender]
     }
-    const videJuego = await Videogame.create(req.body)
+    const videJuego = await Videogame.create(req.body)    
     arrayGender.map(async e => {
         const gender = await Gender.findByPk(e)
         await videJuego.addGender(gender)
@@ -175,6 +176,46 @@ const getPlataforms = (req, res) => {
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
+const creadosExistentes = (req, res) =>{
+    let array = []
+    const {valor} = req.params
+    console.log(valor)
+    if(valor === 'existentes'){
+    console.log('existe')
+        fetch('https://api.rawg.io/api/games?page_size=6')
+        .then(result => result.json())
+        .then(e => {
+            e.results.map(mapeo => {
+                let arrayGender = []
+                mapeo.genres.map(gen => {
+                    arrayGender.push(gen.name)
+                })
+                array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
+            })
+            res.send(array)
+        })
+    }else{
+    console.log('creados')
+        Videogame.findAll({ include: Gender })
+        .then(e => {
+            const arrayObj=[]
+            e.map(result =>{
+                const arrayGend=[]
+                result.genders.map(mapeo =>{
+                    arrayGend.push(mapeo.name)
+                })
+                arrayObj.push({name:result.name, id:result.id, rating:result.rating, genres:arrayGend, image:'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg'})
+            })          
+            res.status(200).send(arrayObj)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }   
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+
 // const prueba = (req, res) => {
 //     console.log(req.query.id)
 //     Videogame.findByPk(req.query.id,{include:Gender})
@@ -193,6 +234,7 @@ module.exports = {
     getIdGame,
     getGenres,
     postCrearVideoJuego,
-    getPlataforms
+    getPlataforms,
+    creadosExistentes
     // prueba
 }
