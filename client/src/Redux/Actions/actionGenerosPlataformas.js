@@ -1,4 +1,4 @@
-import { NUEVO__GENERO, NUEVA__PLATAFORMA, RESET } from '../constants/constant'
+import { NUEVO__GENERO, NUEVA__PLATAFORMA, RESET, RESET__GENEROS, RESET__PLATAFORMA } from '../constants/constant'
 
 
 
@@ -19,6 +19,18 @@ return{
 export const reset = () =>{
     return{
         type:RESET
+    }
+}
+
+export const resetGeneros = () =>{
+    return {
+        type:RESET__GENEROS
+    }
+}
+
+export const resetPlataforma = () =>{
+    return{
+        type:RESET__PLATAFORMA
     }
 }
 

@@ -18,9 +18,22 @@ const getGames = (req, res) => {
                     mapeo.genres.map(gen => {
                         arrayGender.push(gen.name)
                     })
-                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
+                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id: mapeo.id })
                 })
-                array.length !== 0 ? res.send(array) : res.send('No existe el  videojuego')
+                Videogame.findAll({ include: Gender })
+                    .then(f => {
+                        console.log(f)
+                        console.log('nombre: ' + nombre)
+                        const arrayFiltrado = f.filter(filt => filt.name === nombre)
+                        arrayFiltrado.map(resultado => {
+                            const arrayGend = []
+                            resultado.genders.map(mapeo => {
+                                arrayGend.push(mapeo.name)
+                            })
+                            array.push({ name: resultado.name, id: resultado.id, rating: resultado.rating, genres: arrayGend, image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg' })
+                        })
+                        array.length !== 0 ? res.send(array) : res.send('No existe el  videojuego');
+                    })
             })
         : fetch('https://api.rawg.io/api/games?page_size=6')
             .then(result => result.json())
@@ -30,7 +43,7 @@ const getGames = (req, res) => {
                     mapeo.genres.map(gen => {
                         arrayGender.push(gen.name)
                     })
-                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
+                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id: mapeo.id })
                 })
                 res.send(array)
             })
@@ -70,11 +83,25 @@ const getIdGame = (req, res) => {
                         }
                         res.send(obj)
                     })
-                    .catch(err => res.send('No existe el video juego'))
+                    .catch(err => res.send('No existe el video juego: ' + err))
+                //datos especificos de los creados
                 : Videogame.findByPk(id, { include: Gender })
                     .then((videogames) => {
-                        console.log(videogames)
-                        res.status(200).send(videogames)
+                        const arrayGend = []
+                        videogames.genders.map(mapeo => {
+                            arrayGend.push(mapeo.name)
+                        })
+                        const objeto = {
+                            id: videogames.id,
+                            name: videogames.name,
+                            genres: arrayGend,
+                            image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg',
+                            description: videogames.description,
+                            releaseDate: videogames.releaseDate,
+                            rating: videogames.rating,
+                            platforms: videogames.platforms,
+                        }
+                        res.status(200).send(objeto)
                     })
         })
         .catch((err) => res.send(err))
@@ -85,19 +112,39 @@ const getIdGame = (req, res) => {
 //get listar generos desde la api y guerdar en la base de datos. los requiere y envia
 const getGenres = (req, res) => {
     const arrayGender = []
+    const arrayNue = []
+    const arrayfiltrados = []    
+
     const gener = req.query.name
-    // console.log(gener)
-    Object.values(req.query).length !== 0        // hasta la linea 112 para filtrar por genero 
-        ? fetch(`https://api.rawg.io/api/genres`)
+    if (Object.values(req.query).length !== 0) {
+        Videogame.findAll({ include: Gender })
+            .then(f => {
+                f.map(mapeoFilt=>{
+                if(mapeoFilt.dataValues.genders.filter(filtro =>  filtro.dataValues.name === gener).length>0){
+                    arrayfiltrados.push(mapeoFilt)
+                }          
+                })                
+                arrayfiltrados.map(mapeoFinal=>{
+                    const arrayGend = []
+                    mapeoFinal.genders.map(mapeo => {
+                        arrayGend.push(mapeo.name)
+                    })
+                    arrayNue.push({ name: mapeoFinal.name, id: mapeoFinal.id, rating: mapeoFinal.rating, genres: arrayGend, image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg' })
+                })                
+            })
+    }
+
+    Object.values(req.query).length !== 0       //verifica si el req.query trae algun dato si no los trae los llama de la api
+        ?
+        fetch(`https://api.rawg.io/api/genres`) // hasta la linea 141 para filtrar por genero 
             .then(e => e.json())
             .then(resultado => {
                 const filtrado = resultado.results.filter(filt => filt.name === gener)
                 const nuevoArray = []
                 filtrado[0].games.map(mape => {
                     nuevoArray.push({ name: mape.name, id: mape.id })
-                })              
+                })
                 let count = 0
-                const arrayNue = []
                 nuevoArray.map(mapeo => {
                     fetch(`https://api.rawg.io/api/games/${mapeo.id}`)
                         .then(e => e.json())
@@ -106,12 +153,12 @@ const getGenres = (req, res) => {
                             result.genres.map(mape => {
                                 arrayGender.push(mape.name)
                             })
-                            arrayNue.push({ name: result.name, image: result.background_image, rating: result.rating, genres:arrayGender, id:result.id })
+                            arrayNue.push({ name: result.name, image: result.background_image, rating: result.rating, genres: arrayGender, id: result.id })
                             count++
                             count === nuevoArray.length ? res.send(arrayNue)
                                 :
                                 null
-                        })                        
+                        })
                 })
             })
             .catch((error) => res.send(console.log(error)))
@@ -151,7 +198,7 @@ const postCrearVideoJuego = async (req, res) => {
     if (!Array.isArray(arrayGender)) {
         arrayGender = [arrayGender]
     }
-    const videJuego = await Videogame.create(req.body)    
+    const videJuego = await Videogame.create(req.body)
     arrayGender.map(async e => {
         const gender = await Gender.findByPk(e)
         await videJuego.addGender(gender)
@@ -175,43 +222,42 @@ const getPlataforms = (req, res) => {
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
-
-const creadosExistentes = (req, res) =>{
+//creados o existentes
+const creadosExistentes = (req, res) => {
     let array = []
-    const {valor} = req.params
+    const { valor } = req.params
     console.log(valor)
-    if(valor === 'existentes'){
-    console.log('existe')
-        fetch('https://api.rawg.io/api/games?page_size=6')
-        .then(result => result.json())
-        .then(e => {
-            e.results.map(mapeo => {
-                let arrayGender = []
-                mapeo.genres.map(gen => {
-                    arrayGender.push(gen.name)
-                })
-                array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id:mapeo.id })
-            })
-            res.send(array)
-        })
-    }else{
-    console.log('creados')
+    if (valor === 'creados') {
         Videogame.findAll({ include: Gender })
-        .then(e => {
-            const arrayObj=[]
-            e.map(result =>{
-                const arrayGend=[]
-                result.genders.map(mapeo =>{
-                    arrayGend.push(mapeo.name)
+            .then(e => {
+                const arrayObj = []
+                e.map(result => {
+                    const arrayGend = []
+                    result.genders.map(mapeo => {
+                        arrayGend.push(mapeo.name)
+                    })
+                    arrayObj.push({ name: result.name, id: result.id, rating: result.rating, genres: arrayGend, image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg' })
                 })
-                arrayObj.push({name:result.name, id:result.id, rating:result.rating, genres:arrayGend, image:'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg'})
-            })          
-            res.status(200).send(arrayObj)
-        })
-        .catch(error=>{
-            console.log(error)
-        })
-    }   
+                console.log(arrayObj)
+                res.status(200).send(arrayObj.length === 0 ? 'No Hay VideoJuegos Creados' : arrayObj)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    } else {
+        fetch('https://api.rawg.io/api/games?page_size=6')
+            .then(result => result.json())
+            .then(e => {
+                e.results.map(mapeo => {
+                    let arrayGender = []
+                    mapeo.genres.map(gen => {
+                        arrayGender.push(gen.name)
+                    })
+                    array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id: mapeo.id })
+                })
+                res.send(array)
+            })
+    }
 }
 
 //-----------------------------------------------------------------------------------------------------------------

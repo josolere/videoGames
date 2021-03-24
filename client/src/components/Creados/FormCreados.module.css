@@ -121,6 +121,7 @@
     box-shadow: 1px 1px 1px 1px rgba(7, 123, 236, 0.5);
     outline: none;
     border: 0;
+    margin: .3rem;
 }
 
 .button__listar:hover {

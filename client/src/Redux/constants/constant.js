@@ -10,3 +10,5 @@ export const NUEVO__GENERO = 'NUEVO__GENERO';
 export const NUEVA__PLATAFORMA = 'NUEVA__PLATAFORMA';
 export const RESET = 'RESET';
 export const CREADOS = 'CREADOS';
+export const RESET__GENEROS = 'RESET__GENEROS';
+export const RESET__PLATAFORMA = 'RESET__PLATAFORMA';

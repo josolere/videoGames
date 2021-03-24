@@ -22,7 +22,6 @@
     text-align: center;
     color: white;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
-    /* background-color: orchid; */
 }
 
 .contenedor__titulo {
@@ -111,16 +110,55 @@
 .contenedor__card__mensaje {
     /* background-color: bisque; */
     width: 70rem;
-    height: 20rem;
+    height: 40rem;
     display: flex;
     align-items: center;
 }
 
 .card__mensaje {
-    background-color: red;
-    height: 10rem;
-    width: 40rem;
+    background-color: rgb(212, 0, 92);
+    /* background: white; */
+    height: 15rem;
+    width: 50rem;
     display: flex;
     justify-content: center;
-    border-radius: 1rem;    
+    align-items: center;
+    border-radius: 1rem;
+    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.6);
+    color: white;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 1);
+}
+
+.cargando {
+    position: relative;
+    -webkit-box-reflect: below -2.7rem  linear-gradient(transparent,#0004);
+}
+
+.cargando::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: .2rem;
+    height: 100%;
+    background: #03e9f4;
+} 
+
+.cargando h1 {
+    position: relative;
+    color: #03e9f4;
+    letter-spacing: .5rem;
+    font-size: 5rem;
+    text-transform: uppercase;
+    animation: typing 1.5s steps(11) infinite;
+    overflow: hidden;
+}
+
+@keyframes typing {
+   0%,100%{
+        width: 0;
+    }
+      30%, 60%{
+        width: 70.881rem;
+    }
 }

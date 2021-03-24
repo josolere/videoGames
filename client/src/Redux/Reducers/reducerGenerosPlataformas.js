@@ -1,10 +1,10 @@
-import { NUEVA__PLATAFORMA, NUEVO__GENERO, RESET } from '../constants/constant';
+import { NUEVA__PLATAFORMA, NUEVO__GENERO, RESET, RESET__GENEROS, RESET__PLATAFORMA } from '../constants/constant';
 
 
 const initialState = {
     genres: [],
     platforms: [],
-    id:[]
+    id: []
 
 }
 
@@ -24,13 +24,25 @@ export default (state = initialState, action) => {
                 platforms: state.platforms.concat([action.payload])
             }
 
-            case RESET:
-                return {
-                    ...state,
-                    genres: [],
-                    platforms: [],
-                    id:[]
-                }
+        case RESET:
+            return {
+                ...state,
+                genres: [],
+                platforms: [],
+                id: []
+            }
+
+        case RESET__GENEROS:
+            return {
+                ...state,
+                genres: [],
+            }
+        case RESET__PLATAFORMA:
+            return {
+                ...state,
+                platforms: [],
+
+            }
 
         default: return state
     }

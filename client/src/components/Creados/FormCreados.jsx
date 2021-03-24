@@ -5,7 +5,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import creados from './FormCreados.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { listarGeneros } from '../../Redux/Actions/actionGeneros';
-import { nuevoGenero, nuevaPlataforma, reset } from '../../Redux/Actions/actionGenerosPlataformas'
+import { nuevoGenero, nuevaPlataforma, reset, resetGeneros, resetPlataforma } from '../../Redux/Actions/actionGenerosPlataformas'
 import Axios from 'axios'
 
 
@@ -18,10 +18,10 @@ const FormCreados = () => {
     const nuevaPlataf = useSelector(store => store.reducerGenPlat.platforms);
     const generoId = useSelector(store => store.reducerGenPlat.id);
 
-    const [option, setOption] = useState('Generos')
+
     const [mensaje, setMensaje] = useState(false)
-    const [gener, setGener] = useState({ genres: [] })
-    const [platforma, setPlatforma] = useState({ platforms: [] })
+    const [gener, setGener] = useState({ genres: null })
+    const [platforma, setPlatforma] = useState({ platforms: null })
     const [plataforma, setPlataforma] = useState([])
     const [datos, setDatos] = useState({
         name: '',
@@ -40,12 +40,12 @@ const FormCreados = () => {
         })
     }, [generoId])
 
-
     useEffect(() => {
         setDatos({
             ...datos,
             platforms: nuevaPlataf
         })
+
     }, [nuevaPlataf])
 
 
@@ -56,6 +56,7 @@ const FormCreados = () => {
     useEffect(async () => {
         const platform = await Axios.get('https://api.rawg.io/api/platforms')
         setPlataforma(platform.data.results)
+
     }, [])
 
     const crearVideojuego = async (e) => {
@@ -111,8 +112,6 @@ const FormCreados = () => {
             let nuevoFiltrado = generos.filter(filt => filt.name === gener.genres)
             dispatch(nuevoGenero(nuevoFiltrado))
         }
-        setOption(option)
-
     }
 
     // funcion filtra si ya esta la plataforma  y agrega una nueva plataforma si no esta 
@@ -120,6 +119,21 @@ const FormCreados = () => {
         const nuevfilt = nuevaPlataf.filter(filt => filt === platforma.platforms)
         if (nuevfilt.length === 0) {
             dispatch(nuevaPlataforma(platforma.platforms))
+        }
+    }
+
+    const eliminarItemnGenero = (dato) => {
+        dispatch(resetGeneros())
+        const eliminar = nuevoGeneros.filter(fil => fil.name !== dato)
+        if (eliminar.length !== 0) {
+            dispatch(nuevoGenero(eliminar))
+        }
+    }
+    const eliminarItemnPlataforma = (dato) => {
+        dispatch(resetPlataforma())
+        const eliminar = nuevaPlataf.filter(fil => fil !== dato)
+        if (eliminar.length !== 0) {
+            dispatch(nuevaPlataforma(eliminar))
         }
     }
 
@@ -194,7 +208,7 @@ const FormCreados = () => {
                                     onChange={handleGenero}
                                     value={gener.genres}
                                 >
-                                    <option label={option} ></option>
+                                    <option>Generos</option>
                                     {generos.map((mapeo, index) => {
                                         return <option key={index} >{mapeo.name}</option>
                                     })}
@@ -202,7 +216,7 @@ const FormCreados = () => {
                                 </select>
                                 <button
                                     type='button'
-                                    onClick={() => { guardarGenero() }}
+                                    onClick={() => { gener.genres !== 'Generos' && gener.genres !== null ? guardarGenero() : console.log('') }}
                                     className={creados.button__listar}
 
                                 >In</button>
@@ -215,7 +229,7 @@ const FormCreados = () => {
                                     onChange={handlePlataforma}
                                     value={platforma.platforms}
                                 >
-                                    <option >Plataformas</option>
+                                    <option>Plataformas</option>
                                     {
                                         plataforma.length !== 0 ?
                                             plataforma.map(mapeo => {
@@ -226,7 +240,7 @@ const FormCreados = () => {
                                 </select>
                                 <button
                                     type='button'
-                                    onClick={() => { guardarPlataforma() }}
+                                    onClick={() => { platforma.platforms !== 'Plataformas' && platforma.platforms !== null ? guardarPlataforma() : console.log('') }}
                                     className={creados.button__listar}
                                 >In</button>
                             </div>
@@ -238,7 +252,15 @@ const FormCreados = () => {
                                     {
                                         nuevoGeneros.length !== 0 ?
                                             nuevoGeneros.map(mapeo => {
-                                                return <li> {mapeo.name} </li>
+                                                return <li>
+                                                    <button
+                                                        className={creados.button__listar}
+                                                        type='button'
+                                                        onClick={() => eliminarItemnGenero(mapeo.name)}>
+                                                        X
+                                                        </button>
+                                                    {mapeo.name}
+                                                </li>
                                             }) : null
                                     }
                                 </ul>
@@ -248,7 +270,14 @@ const FormCreados = () => {
                                 <ul>{
                                     nuevaPlataf.length !== 0 ?
                                         nuevaPlataf.map(mapeo => {
-                                            return <li>{mapeo}</li>
+                                            return <li>
+                                                <button
+                                                    className={creados.button__listar}
+                                                    type='button'
+                                                    onClick={() => eliminarItemnPlataforma(mapeo)}>
+                                                    X
+                                                        </button>
+                                                {mapeo}</li>
                                         }) : null
                                 }
                                 </ul>
