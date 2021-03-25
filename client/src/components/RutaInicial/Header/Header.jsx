@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye } from '@fortawesome/free-solid-svg-icons'
 import { listarAscendente, listarDescendente, listarAlfabetico, listarRating } from '../../../Redux/Actions/actionOrdenar'
 import { listaGeneral } from '../../../Redux/Actions/actionGeneral'
-import { listarGeneros, buscarGeneros, buscarCreados } from '../../../Redux/Actions/actionGeneros'
+import { listarGeneros, buscarGeneros, buscarCreados } from '../../../Redux/Actions/actionGeneros';
+import { resetPaginado } from '../../../Redux/Actions/actionPaginado';
 
 
 const Header = () => {
@@ -14,8 +15,6 @@ const Header = () => {
 
     const [datos, setDatos] = useState({ name: '' });
     const [tipos, setTipos] = useState({ tipos: 'Generos' })
-    // const [ordenados, setOrdenados] = useState({ valoralf: 'alfabetico' })
-    // const [creados, setCreados] = useState('existente')
 
     const generos = useSelector(store => store.reduceGeneros)
 
@@ -32,13 +31,6 @@ const Header = () => {
             [e.target.name]: e.target.value
         })
     }
-
-    // const onChangeValueAlfabeticos = (e) => {
-    //     setOrdenados({
-    //         ...ordenados,
-    //         [e.target.name]: e.target.value
-    //     })
-    // }
 
     useEffect(() => {
         dispatch(listarGeneros())
@@ -75,6 +67,7 @@ const Header = () => {
                         onClick={() => {
                             dispatch(listaGeneral(datos))
                             setDatos({ name: '' })
+                            dispatch(resetPaginado())
                         }}
                     >
                         Buscar
@@ -94,15 +87,18 @@ const Header = () => {
                         <option className={head.option__primerSelect} value="creados">Creados</option>
                         <option className={head.option__primerSelect} value="existentes">Existentes</option>
                     </select>
-                    <button 
-                    className={head.button__primerSelect}
-                    type='button'
-                    onClick={() => {
-                        tipos !== 'seleccionar' ?
-                            dispatch(buscarCreados(tipos)) :
-                            console.log('null')
-                    }
-                    }
+                    <button
+                        className={head.button__primerSelect}
+                        type='button'
+                        onClick={() => {
+                            dispatch(resetPaginado())
+
+                            tipos !== 'seleccionar' ?
+                                dispatch(buscarCreados(tipos)) :
+                                console.log('null')
+
+                        }
+                        }
                     >Buscar</button>
                 </div>
                 {/* ------------------------------------------------------------------------------------------- */}
@@ -125,9 +121,11 @@ const Header = () => {
                         type='button'
                         className={head.buton__segundoSelect}
                         onClick={() => {
+                            dispatch(resetPaginado())
                             tipos !== 'Generos' ?
                                 dispatch(buscarGeneros(tipos)) :
                                 console.log('null')
+
                         }
                         }
                     >Buscar</button>
@@ -138,7 +136,7 @@ const Header = () => {
                     <div className={head.contenedor__selectores__orden}>
                         <div className={head.select__ordenar}>
                             <form >
-                                <label className={head.label__select__ordenar1}>Ascendente</label>
+                                <label className={head.label__select__ordenar1}>Ascend</label>
                                 <label>
                                     <input
                                         onClick={() => dispatch(listarAscendente())}
@@ -157,14 +155,14 @@ const Header = () => {
                                         value='descendente'
                                     />
                                 </label>
-                                <label className={head.label__select__ordenar2} >Descendente</label>
+                                <label className={head.label__select__ordenar2} >Descend</label>
                             </form>
                         </div>
                         {/* //------------------------------------------------------------------------------------------------------------------- */}
 
                         <div className={head.select__alfabetico}>
                             <form>
-                                <label className={head.label__select__alfabetico1} >Alfabetico</label>
+                                <label className={head.label__select__alfabetico1} >Alfabet</label>
                                 <label>
                                     <input
                                         onClick={() => dispatch(listarAlfabetico())}
@@ -176,7 +174,7 @@ const Header = () => {
                                 </label>
                                 <label>
                                     <input
-                                        onClick={() => dispatch(listarRating())}                                        
+                                        onClick={() => dispatch(listarRating())}
                                         className={head.input__radio1}
                                         type="radio" name="valoralf"
                                         value='fuerza'

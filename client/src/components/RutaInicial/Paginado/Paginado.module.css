@@ -1,0 +1,57 @@
+.contenedor{
+    /* background-color: blueviolet; */
+    height: 100vh;
+    width: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.button__icon1,
+.button__icon2
+{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    /* elimina bordes al hacer click */
+    outline: none;
+    border: 0;
+}
+
+.button__icon1{
+    box-shadow: -1.2px 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.button__icon2{
+    box-shadow: 1.2px 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+
+.button__icon1:hover,
+.button__icon2:hover{
+cursor: pointer;
+}
+
+#click,
+#clickRight{
+box-shadow: 0 0 .5px .5px rgba(0, 0, 0, 0.6);    
+}
+
+.contenedor__numeros{
+    display: flex;
+    height: 40%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.button__numeros{
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.6);
+}
+
+
+
+

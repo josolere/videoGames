@@ -34,9 +34,21 @@
 .subcontenedor2 {
     width: 43%;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     padding: 1rem;
     box-sizing: border-box;
+}
+
+.subcontenedor2 li{
+list-style: none;
+}
+
+.agregados,
+.generos__agregados
+{
+    height: 10rem;
+    overflow: auto;
 }
 
 .contenedor__nombre, .contenedor__fecha, .contenedor__rating, .contenedor__generos, .contenedor__plataformas {
@@ -65,7 +77,7 @@
 }
 
 .input__fecha, .input__rating, .select__generos, .select__plataformas {
-    width: 12rem;
+    width: 12.5rem;
 }
 
 .label__fecha, .label__rating, .label__generos, .label__plataformas {

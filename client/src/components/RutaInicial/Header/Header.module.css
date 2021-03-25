@@ -36,7 +36,6 @@
 
 .label__datos {
     text-align: center;
-    /* margin-top: 2rem; */
     color: #077BEC;
     font-weight: 600;
 }
@@ -48,9 +47,9 @@
     border-left: none;
     border-right: none;
     box-shadow: 1px 1px 4px 1px rgba(7, 123, 236, 0.3);
-    text-align: center;
-    outline: none;
+    text-align: center;    
     /*  suspender el borde cuando se da click en el input junto con la linea de abajo     */
+    outline: none;
     border: 0;
     color: #077BEC;
 }
@@ -185,8 +184,10 @@
 }
 
 .contenedor__selectores__orden {
+    height: 100%;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .link__form {
@@ -281,6 +282,7 @@
 .label__select__ordenar1,.label__select__ordenar2, .label__select__alfabetico1, .label__select__alfabetico2{
     color: #077BEC;
     font-weight: 600;
+    margin: .5rem;
 }
 label{
     font-weight: 600;

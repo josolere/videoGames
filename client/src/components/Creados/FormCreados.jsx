@@ -81,7 +81,7 @@ const FormCreados = () => {
             genres: []
         })
         dispatch(reset())
-        setTimeout(() => setMensaje(false), 5000);
+        setTimeout(() => setMensaje(false), 3000);
     }
 
     const handleInput = (e) => {
@@ -246,41 +246,47 @@ const FormCreados = () => {
                             </div>
                         </div>
                         <div className={creados.subcontenedor2}>
-                            <div>
+                            <div className={creados.contenedor__generos__agregados}>
                                 <label>Generos</label>
-                                <ul>
-                                    {
-                                        nuevoGeneros.length !== 0 ?
-                                            nuevoGeneros.map(mapeo => {
+                                <div className={creados.generos__agregados}>
+
+                                    <ul>
+                                        {
+                                            nuevoGeneros.length !== 0 ?
+                                                nuevoGeneros.map(mapeo => {
+                                                    return <li>
+                                                        <button
+                                                            className={creados.button__listar}
+                                                            type='button'
+                                                            onClick={() => eliminarItemnGenero(mapeo.name)}>
+                                                            X
+                                                        </button>
+                                                        {mapeo.name}
+                                                    </li>
+                                                }) : null
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className={creados.contenedor__plataformas__agregados}>
+                                <label>Platafromas</label>
+                                <div className={creados.agregados}>
+
+                                    <ul>{
+                                        nuevaPlataf.length !== 0 ?
+                                            nuevaPlataf.map(mapeo => {
                                                 return <li>
                                                     <button
                                                         className={creados.button__listar}
                                                         type='button'
-                                                        onClick={() => eliminarItemnGenero(mapeo.name)}>
+                                                        onClick={() => eliminarItemnPlataforma(mapeo)}>
                                                         X
                                                         </button>
-                                                    {mapeo.name}
-                                                </li>
+                                                    {mapeo}</li>
                                             }) : null
                                     }
-                                </ul>
-                            </div>
-                            <div>
-                                <label>Platafromas</label>
-                                <ul>{
-                                    nuevaPlataf.length !== 0 ?
-                                        nuevaPlataf.map(mapeo => {
-                                            return <li>
-                                                <button
-                                                    className={creados.button__listar}
-                                                    type='button'
-                                                    onClick={() => eliminarItemnPlataforma(mapeo)}>
-                                                    X
-                                                        </button>
-                                                {mapeo}</li>
-                                        }) : null
-                                }
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

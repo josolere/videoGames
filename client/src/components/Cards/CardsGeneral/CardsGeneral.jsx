@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import CardGeneral from './CardGeneral';
 import card from './CardGeneral.module.css'
-
-
+import {limite} from '../../../Redux/Actions/actionPaginado'
 
 
 const CardsGeneral = () => {
-    const [videJuego, setVideJuego] = useState([])
-    const [mensaje, setMensaje] = useState('')
-    const [ascendente, setAscendente] = useState('')
-    const [ordenAlfabetico, setOrdenAlfabetico] = useState('')
+    const dispatch = useDispatch()
+    const [videJuego, setVideJuego] = useState([]);
+    const [mensaje, setMensaje] = useState('');
+    const [ascendente, setAscendente] = useState('');
+    const [ordenAlfabetico, setOrdenAlfabetico] = useState('');
+    const [paginas, setPaginas] = useState([]);
 
     // ------------------------------------------------------------------------------------------------
     const video = useSelector(store => store.reducerGeneral);
@@ -18,6 +19,7 @@ const CardsGeneral = () => {
     const orden = useSelector(store => store.reducerOrden);
     const creados = useSelector(store => store.reducerCreados);
     const alfabetico = useSelector(store => store.reducerAlfabetico);
+    const paginado = useSelector(store => store.reducerPaginado);
 
     //-------------------------------------------------------------------------------------------------
     useEffect(() => {
@@ -28,6 +30,18 @@ const CardsGeneral = () => {
             setVideJuego(video.data)
         }
     }, [video])
+    //------------------------------------------------------------------
+
+    useEffect(() => {        
+            setPaginas(videJuego.slice(paginado.inicio, paginado.fin))              
+    }, [videJuego, paginado])
+
+//-------------------------------------------------------------------------------------------
+
+//envia la cantidad de elementos en el arrayi de videojuegos al actionpaginado
+    useEffect(() => {
+                dispatch(limite(videJuego.length))       
+    }, [videJuego])
 
     //-----------------------------------------------------------------------------------------------------------------
     useEffect(() => {
@@ -64,11 +78,11 @@ const CardsGeneral = () => {
     return (
         <>
             {
-                videJuego.length === 0 && typeof video.data === 'string' || videJuego.length === 0 && typeof creados.data === 'string'
+                paginas.length === 0 && typeof video.data === 'string' || paginas.length === 0 && typeof creados.data === 'string'
                     ?
                     <CardGeneral datos={mensaje} />
                     :
-                    videJuego.length === 0
+                    paginas.length === 0
                         ?
                         <div className={card.cargando}><h1>Cargando...</h1></div>
                         :
@@ -76,16 +90,16 @@ const CardsGeneral = () => {
                             ?
                             ascendente.data === 'desc'
                                 ?
-                                videJuego.sort((a, b) => a.name > b.name ? 1 : -1).reverse().map((mapeo, index) => {
+                                paginas.sort((a, b) => a.name > b.name ? 1 : -1).reverse().map((mapeo, index) => {
                                     return <CardGeneral datos={mapeo} key={index} />
                                 })
-                                : videJuego.sort((a, b) => a.name > b.name ? 1 : -1).map((mapeo, index) => {
+                                : paginas.sort((a, b) => a.name > b.name ? 1 : -1).map((mapeo, index) => {
                                     return <CardGeneral datos={mapeo} key={index} />
                                 })
-                            : ascendente.data === 'desc' ? videJuego.sort((a, b) => a.rating > b.rating ? 1 : -1).reverse().map((mapeo, index) => {
+                            : ascendente.data === 'desc' ? paginas.sort((a, b) => a.rating > b.rating ? 1 : -1).reverse().map((mapeo, index) => {
                                 return <CardGeneral datos={mapeo} key={index} />
                             })
-                                : videJuego.sort((a, b) => a.rating > b.rating ? 1 : -1).map((mapeo, index) => {
+                                : paginas.sort((a, b) => a.rating > b.rating ? 1 : -1).map((mapeo, index) => {
                                     return <CardGeneral datos={mapeo} key={index} />
                                 })
             }

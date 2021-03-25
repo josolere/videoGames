@@ -12,3 +12,7 @@ export const RESET = 'RESET';
 export const CREADOS = 'CREADOS';
 export const RESET__GENEROS = 'RESET__GENEROS';
 export const RESET__PLATAFORMA = 'RESET__PLATAFORMA';
+export const PAGINA__IZQUIERDA = 'PAGINA__IZQUIERDA'
+export const PAGINA__DERECHA = 'PAGINA__DERECHA'
+export const LIMITE = 'LIMITE';
+export const RESET__PAGINADO = 'RESET__PAGINADO'

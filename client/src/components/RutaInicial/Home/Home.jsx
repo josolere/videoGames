@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import home from './Home.module.css';
 import { listaGeneral } from '../../../Redux/Actions/actionGeneral';
 import queryString from 'query-string';
+import Paginado from '../Paginado/Paginado';
 
 
 const Home = () => {
@@ -20,6 +21,9 @@ const Home = () => {
             <div className={home.contenedor}>
                 <div className={home.contenedor__header}>
                     <Header />
+                </div>
+                <div className={home.contenedor__paginado}>
+                    <Paginado />
                 </div>
                 <div className={home.contenedor__cardsgeneral}>
                     <CardsGeneral />

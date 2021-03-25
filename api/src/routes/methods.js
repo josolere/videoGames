@@ -22,8 +22,6 @@ const getGames = (req, res) => {
                 })
                 Videogame.findAll({ include: Gender })
                     .then(f => {
-                        console.log(f)
-                        console.log('nombre: ' + nombre)
                         const arrayFiltrado = f.filter(filt => filt.name === nombre)
                         arrayFiltrado.map(resultado => {
                             const arrayGend = []
@@ -35,7 +33,7 @@ const getGames = (req, res) => {
                         array.length !== 0 ? res.send(array) : res.send('No existe el  videojuego');
                     })
             })
-        : fetch('https://api.rawg.io/api/games?page_size=6')
+        : fetch('https://api.rawg.io/api/games?page_size=18')
             .then(result => result.json())
             .then(e => {
                 e.results.map(mapeo => {
@@ -226,7 +224,6 @@ const getPlataforms = (req, res) => {
 const creadosExistentes = (req, res) => {
     let array = []
     const { valor } = req.params
-    console.log(valor)
     if (valor === 'creados') {
         Videogame.findAll({ include: Gender })
             .then(e => {
@@ -238,14 +235,13 @@ const creadosExistentes = (req, res) => {
                     })
                     arrayObj.push({ name: result.name, id: result.id, rating: result.rating, genres: arrayGend, image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg' })
                 })
-                console.log(arrayObj)
                 res.status(200).send(arrayObj.length === 0 ? 'No Hay VideoJuegos Creados' : arrayObj)
             })
             .catch(error => {
                 console.log(error)
             })
     } else {
-        fetch('https://api.rawg.io/api/games?page_size=6')
+        fetch('https://api.rawg.io/api/games?page_size=34')
             .then(result => result.json())
             .then(e => {
                 e.results.map(mapeo => {
