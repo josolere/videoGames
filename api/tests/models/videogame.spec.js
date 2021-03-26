@@ -1,4 +1,4 @@
-const { Videogame, conn } = require('../../src/db.js');
+const { Videogame, conn, Gender } = require('../../src/db.js');
 const { expect } = require('chai');
 
 describe('Videogame model', () => {
@@ -15,8 +15,19 @@ describe('Videogame model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', () => {
-        Recipe.create({ name: 'Super Mario Bros' });
+        Videogame.create({ name: 'Super Mario Bros' });
       });
+
+      it('VideoGame tiene la definicion del esquema esperado', () => {
+        console.log(Videogame);
+        expect(Videogame.tableAttributes.releaseDate).to.be.an('object')
+      });
+
+      it('Gender tiene la definicion del esquema esperado', () => {
+        console.log(Gender);
+        expect(Gender.tableAttributes.name).to.be.an('object')
+      });
+      
     });
   });
 });

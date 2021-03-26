@@ -63,7 +63,7 @@ const FormCreados = () => {
         e.preventDefault()
         await Axios.post('http://localhost:3001/videogames', datos)
             .then(result => {
-                if (result.status === 200) {
+                if (result.status === 201) {
                     setMensaje(true)
                 } else {
                     setMensaje(false)

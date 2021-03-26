@@ -30,7 +30,7 @@ const getGames = (req, res) => {
                             })
                             array.push({ name: resultado.name, id: resultado.id, rating: resultado.rating, genres: arrayGend, image: 'https://www.trecebits.com/wp-content/uploads/2019/04/11854.jpg' })
                         })
-                        array.length !== 0 ? res.send(array) : res.send('No existe el  videojuego');
+                        array.length !== 0 ? res.status(200).send(array) : res.send('No existe el  videojuego');
                     })
             })
         : fetch('https://api.rawg.io/api/games?page_size=18')
@@ -43,7 +43,7 @@ const getGames = (req, res) => {
                     })
                     array.push({ name: mapeo.name, image: mapeo.background_image, genres: arrayGender, rating: mapeo.rating, id: mapeo.id })
                 })
-                res.send(array)
+                res.status(200).send(array)
             })
 }
 
@@ -201,7 +201,7 @@ const postCrearVideoJuego = async (req, res) => {
         const gender = await Gender.findByPk(e)
         await videJuego.addGender(gender)
     })
-    res.json(videJuego)
+    res.status(201).json(videJuego)
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------
