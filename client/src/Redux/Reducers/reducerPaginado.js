@@ -1,4 +1,4 @@
-import { PAGINA__IZQUIERDA, PAGINA__DERECHA, LIMITE, RESET__PAGINADO } from '../constants/constant';
+import { PAGINA__IZQUIERDA, PAGINA__DERECHA, LIMITE, RESET__PAGINADO, NUMERO__DE__PAGINA, RESET__PAGINADO__SIN__LIMITE } from '../constants/constant';
 
 
 const inictialState = {
@@ -33,6 +33,20 @@ export default (state = inictialState, action) => {
                 inicio: state.inicio = 0,
                 fin: state.fin = 6,
                 limite: state.limite = 0
+            }
+
+            case RESET__PAGINADO__SIN__LIMITE:
+                return {
+                    ...state,
+                    inicio: state.inicio = 0,
+                    fin: state.fin = 6,
+                }
+
+        case NUMERO__DE__PAGINA:
+            return {
+                ...state,
+                inicio:state.fin*action.payload - 6,
+                fin:state.fin*action.payload
             }
 
         default: return state

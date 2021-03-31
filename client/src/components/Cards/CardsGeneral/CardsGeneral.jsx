@@ -13,6 +13,7 @@ const CardsGeneral = () => {
     const [ordenAlfabetico, setOrdenAlfabetico] = useState('');
     const [paginas, setPaginas] = useState([]);
 
+    console.log(videJuego)
     // ------------------------------------------------------------------------------------------------
     const video = useSelector(store => store.reducerGeneral);
     const tipos = useSelector(store => store.reducerTipos);

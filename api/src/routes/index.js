@@ -24,8 +24,10 @@ router.get('/videogame/:id', getIdGame)
 //traer generos desde api  a base de datos y utilizarlos desde la base de datos
 router.get('/genres', getGenres)
 
+
 //post crear videojuego
 router.post('/videogames', postCrearVideoJuego)
+
 
 //get listar plataformas
 router.get('/platforms', getPlataforms)
@@ -33,6 +35,7 @@ router.get('/platforms', getPlataforms)
 
 //get listar existentes o creados
 router.get('/creados/:valor', creadosExistentes)
+
 
 // router.get('/video/id',prueba)
 

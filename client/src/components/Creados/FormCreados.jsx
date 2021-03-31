@@ -32,7 +32,7 @@ const FormCreados = () => {
         genres: []
     })
 
-
+    //ingresar generos a la base de datos
     useEffect(() => {
         setDatos({
             ...datos,
@@ -40,12 +40,13 @@ const FormCreados = () => {
         })
     }, [generoId])
 
+
+    // ingresar plataformas a la base de datos
     useEffect(() => {
         setDatos({
             ...datos,
             platforms: nuevaPlataf
         })
-
     }, [nuevaPlataf])
 
 
@@ -53,12 +54,13 @@ const FormCreados = () => {
         dispatch(listarGeneros())
     }, [dispatch])
 
+
     useEffect(async () => {
         const platform = await Axios.get('https://api.rawg.io/api/platforms')
         setPlataforma(platform.data.results)
-
     }, [])
 
+    //crear videojuego cuando se da click al boton
     const crearVideojuego = async (e) => {
         e.preventDefault()
         await Axios.post('http://localhost:3001/videogames', datos)
@@ -137,6 +139,7 @@ const FormCreados = () => {
         }
     }
 
+
     return (
         <>
             <div className={creados.body}>
@@ -159,7 +162,6 @@ const FormCreados = () => {
                             className={creados.input__nombre}
                             onChange={handleInput}
                             value={datos.name}
-
                         />
                     </div>
                     <div className={creados.contenedor__descripcion}>
@@ -212,14 +214,14 @@ const FormCreados = () => {
                                     {generos.map((mapeo, index) => {
                                         return <option key={index} >{mapeo.name}</option>
                                     })}
-
                                 </select>
                                 <button
                                     type='button'
                                     onClick={() => { gener.genres !== 'Generos' && gener.genres !== null ? guardarGenero() : console.log('') }}
                                     className={creados.button__listar}
-
-                                >In</button>
+                                >
+                                    In
+                                </button>
                             </div>
                             <div className={creados.contenedor__plataformas}>
                                 <label className={creados.label__plataformas}>Ingrese Plataformas</label>
@@ -249,7 +251,6 @@ const FormCreados = () => {
                             <div className={creados.contenedor__generos__agregados}>
                                 <label>Generos</label>
                                 <div className={creados.generos__agregados}>
-
                                     <ul>
                                         {
                                             nuevoGeneros.length !== 0 ?
@@ -271,18 +272,17 @@ const FormCreados = () => {
                             <div className={creados.contenedor__plataformas__agregados}>
                                 <label>Platafromas</label>
                                 <div className={creados.agregados}>
-
                                     <ul>{
                                         nuevaPlataf.length !== 0 ?
-                                            nuevaPlataf.map(mapeo => {
-                                                return <li>
+                                            nuevaPlataf.map((mapeos, index) => {
+                                                return <li key={index}>
                                                     <button
                                                         className={creados.button__listar}
                                                         type='button'
-                                                        onClick={() => eliminarItemnPlataforma(mapeo)}>
+                                                        onClick={() => eliminarItemnPlataforma(mapeos)}>
                                                         X
                                                         </button>
-                                                    {mapeo}</li>
+                                                    {mapeos}</li>
                                             }) : null
                                     }
                                     </ul>
@@ -297,7 +297,7 @@ const FormCreados = () => {
                             onClick={crearVideojuego}
                         >
                             Crear Videojuego
-                  </button>
+                        </button>
                     </div>
                 </form>
             </div>

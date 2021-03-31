@@ -33,7 +33,7 @@ const getGames = (req, res) => {
                         array.length !== 0 ? res.status(200).send(array) : res.send('No existe el  videojuego');
                     })
             })
-        : fetch('https://api.rawg.io/api/games?page_size=18')
+        : fetch('https://api.rawg.io/api/games?page_size=49')
             .then(result => result.json())
             .then(e => {
                 e.results.map(mapeo => {

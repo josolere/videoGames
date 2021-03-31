@@ -5,7 +5,6 @@ const initialState = {
     genres: [],
     platforms: [],
     id: []
-
 }
 
 
@@ -21,7 +20,7 @@ export default (state = initialState, action) => {
         case NUEVA__PLATAFORMA:
             return {
                 ...state,
-                platforms: state.platforms.concat([action.payload])
+                platforms: state.platforms.concat(action.payload)
             }
 
         case RESET:
@@ -37,11 +36,11 @@ export default (state = initialState, action) => {
                 ...state,
                 genres: [],
             }
+
         case RESET__PLATAFORMA:
             return {
                 ...state,
                 platforms: [],
-
             }
 
         default: return state
