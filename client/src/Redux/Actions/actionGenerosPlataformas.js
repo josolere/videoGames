@@ -2,7 +2,7 @@ import { NUEVO__GENERO, NUEVA__PLATAFORMA, RESET, RESET__GENEROS, RESET__PLATAFO
 
 
 
-export const nuevoGenero = (payload) => {    
+export const nuevoGenero = (payload) => {  
     return {
         type: NUEVO__GENERO,
         payload

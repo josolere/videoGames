@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const { Videogame, Gender } = require('../db');
-const { API_KEY } = process.env;
+// const { API_KEY } = process.env;
+const API_KEY = '399471434f48482f810482be677be82d'
 
 //---------------------------------------------------------------------------------------------------------------------------
 
@@ -10,7 +11,7 @@ const getGames = (req, res) => {
     let array = []
 
     Object.values(req.query).length !== 0
-        ? fetch(`https://api.rawg.io/api/games?search=${nombre}&page_size=15`)
+        ? fetch(`https://api.rawg.io/api/games?key=${API_KEY}&?search=${nombre}&page_size=15`)
             .then(result => result.json())
             .then(e => {
                 e.results.map(mapeo => {
@@ -33,10 +34,10 @@ const getGames = (req, res) => {
                         array.length !== 0 ? res.status(200).send(array) : res.send('No existe el  videojuego');
                     })
             })
-        : fetch('https://api.rawg.io/api/games?page_size=49')
+        : fetch(`https://api.rawg.io/api/games?key=${API_KEY}&?page_size=49`)
             .then(result => result.json())
             .then(e => {
-                e.results.map(mapeo => {
+                e?.results?.map(mapeo => {
                     let arrayGender = []
                     mapeo.genres.map(gen => {
                         arrayGender.push(gen.name)
@@ -58,7 +59,7 @@ const getIdGame = (req, res) => {
         .then(e => {
             const fil = e.filter(filte => filte.id === id)
             fil.length === 0
-                ? fetch(`https://api.rawg.io/api/games/${id}`)
+                ? fetch(`https://api.rawg.io/api/games?key=${API_KEY}/${id}`)
                     .then(e => e.json())
                     .then(re => {
                         let arrayGender = []
@@ -134,7 +135,7 @@ const getGenres = (req, res) => {
 
     Object.values(req.query).length !== 0       //verifica si el req.query trae algun dato si no los trae los llama de la api
         ?
-        fetch(`https://api.rawg.io/api/genres`) // hasta la linea 141 para filtrar por genero 
+        fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`) // hasta la linea 141 para filtrar por genero 
             .then(e => e.json())
             .then(resultado => {
                 const filtrado = resultado.results.filter(filt => filt.name === gener)
@@ -144,7 +145,7 @@ const getGenres = (req, res) => {
                 })
                 let count = 0
                 nuevoArray.map(mapeo => {
-                    fetch(`https://api.rawg.io/api/games/${mapeo.id}`)
+                    fetch(`https://api.rawg.io/api/games?key=${API_KEY}/${mapeo.id}`)
                         .then(e => e.json())
                         .then(result => {
                             let arrayGender = []
@@ -164,11 +165,11 @@ const getGenres = (req, res) => {
         Gender.findAll()     //verifica si al llamar a la base de datos hay generos guardados
             .then(gen => {
                 if (gen.length === 0) {
-                    fetch('https://api.rawg.io/api/genres')     //lista desde la api por que no hay datos guardados 
+                    fetch(`https://api.rawg.io/api/genres?key=${API_KEY}`)     //lista desde la api por que no hay datos guardados 
                         .then(result => result.json())
                         .then(resul => {
                             let count = 1
-                            resul.results.map(e => {
+                            resul?.results?.map(e => {
                                 Gender.create({ name: e.name },)   //crea generos en la base de datos
                                     .then(en => {
                                         arrayGender.push({ name: en.dataValues.name, id: en.dataValues.id })  //recupera datos desde la base de datos
@@ -208,7 +209,7 @@ const postCrearVideoJuego = async (req, res) => {
 
 //get listar plataformas
 const getPlataforms = (req, res) => {
-    fetch('https://api.rawg.io/api/platforms')
+    fetch(`https://api.rawg.io/api/platforms?key=${API_KEY}`)
         .then(result => result.json())
         .then(e => {
             const arrayPlataforms = []
@@ -241,7 +242,7 @@ const creadosExistentes = (req, res) => {
                 console.log(error)
             })
     } else {
-        fetch('https://api.rawg.io/api/games?page_size=34')
+        fetch(`https://api.rawg.io/api/games?key=${API_KEY}&?page_size=34`)
             .then(result => result.json())
             .then(e => {
                 e.results.map(mapeo => {
@@ -258,14 +259,7 @@ const creadosExistentes = (req, res) => {
 
 //-----------------------------------------------------------------------------------------------------------------
 
-// const prueba = (req, res) => {
-//     console.log(req.query.id)
-//     Videogame.findByPk(req.query.id,{include:Gender})
-//     .then(e=>{
-//         console.log(e)
-//         res.send(e)
-//     })
-// }
+
 
 
 
@@ -278,5 +272,5 @@ module.exports = {
     postCrearVideoJuego,
     getPlataforms,
     creadosExistentes
-    // prueba
+    
 }

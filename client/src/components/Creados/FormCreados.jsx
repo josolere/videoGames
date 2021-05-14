@@ -56,8 +56,9 @@ const FormCreados = () => {
 
 
     useEffect(async () => {
-        const platform = await Axios.get('https://api.rawg.io/api/platforms')
-        setPlataforma(platform.data.results)
+        const platform = await Axios.get('http://localhost:3001/platforms')
+        console.log(platform.data)
+        setPlataforma(platform.data)
     }, [])
 
     //crear videojuego cuando se da click al boton
@@ -235,7 +236,7 @@ const FormCreados = () => {
                                     {
                                         plataforma.length !== 0 ?
                                             plataforma.map(mapeo => {
-                                                return <option >{mapeo.name}</option>
+                                                return <option >{mapeo}</option>
                                             })
                                             : null
                                     }

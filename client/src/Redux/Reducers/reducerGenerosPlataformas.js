@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 genres: state.genres.concat(action.payload),
-                id: state.id.concat(action.payload[0].id)
+                id: state.id.concat(action.payload.map(mapeo => mapeo.id))
             }
 
         case NUEVA__PLATAFORMA:
@@ -35,6 +35,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 genres: [],
+                id:[]
             }
 
         case RESET__PLATAFORMA:
